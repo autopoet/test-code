@@ -1,4 +1,4 @@
-//手写实现数组reduce方法
+// 手写实现数组reduce方法
 Array.prototype.myReduce = function (fn, init) {
   let total;
   let list = this;

@@ -1,4 +1,4 @@
-//函数柯里化
+// 函数柯里化
 function curry(fn) {
   return function (...args) {
     if (fn.length === args.length) {
@@ -11,7 +11,7 @@ function curry(fn) {
   };
 }
 
-//手写实现深拷贝
+// 手写实现深拷贝
 function deepClone(obj) {
   if (typeof boj !== 'object') return obj;
 
