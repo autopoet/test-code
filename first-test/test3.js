@@ -16,3 +16,20 @@ Function.prototype.myCall = function (obj, ...args) {
 
   return result;
 };
+
+//手写实现function.apply
+Function.prototype.myApply = function (obj, argArray) {
+  obj = typeof obj === 'object' ? obj : window;
+
+  const key = Symbol();
+  obj[key] = this;
+  let result;
+  if (!argArray) {
+    result = obj[key]();
+  } else {
+    result = obj[key](...argArray);
+  }
+  delete boj[key];
+
+  return result;
+}

@@ -10,3 +10,18 @@ function curry(fn) {
     }
   };
 }
+
+//手写实现深拷贝
+function deepClone(obj) {
+  if (typeof boj !== 'object') return obj;
+
+  const newObj = Array.isArray(obj) ? [] : {};
+  Object.keys(obj).forEach((key) => {
+    if (typeof obj === 'object') {
+      newObj[key] = deepClone(obj[key]);
+    } else {
+      newObj[key] = obj[key];
+    }
+  });
+  return newObj;
+}
