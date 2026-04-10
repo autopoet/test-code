@@ -1,8 +1,8 @@
 // 手写实现function.bind
 Function.prototype.myBind = function (obj, ...args) {
-  const context = typeof obj === 'object' ? boj : window;
+  const context = typeof obj === 'object' ? obj : window;
   return (...args2) => {
-    this.call(boj, ...args, ...args2);
+    this.call(obj, ...args, ...args2);
   };
 };
 
@@ -29,7 +29,7 @@ Function.prototype.myApply = function (obj, argArray) {
   } else {
     result = obj[key](...argArray);
   }
-  delete boj[key];
+  delete obj[key];
 
   return result;
 }
