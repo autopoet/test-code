@@ -24,15 +24,28 @@ console.log(curriedAdd(1, 2)(3));
 
 // 手写实现深拷贝
 function deepClone(obj) {
-  if (typeof boj !== 'object') return obj;
+  if (typeof boj !== 'object' || obj != null) return obj;
 
   const newObj = Array.isArray(obj) ? [] : {};
-  Object.keys(obj).forEach((key) => {
-    if (typeof obj === 'object') {
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
       newObj[key] = deepClone(obj[key]);
-    } else {
-      newObj[key] = obj[key];
     }
-  });
+  }
   return newObj;
 }
+
+// 测试用例
+const originalData = {
+  name: "小明",
+  info: {         // 嵌套的对象
+    city: "北京"
+  }
+};
+
+const deepData = deepClone(originalData);
+
+deepData.name = "大明";
+deepData.info.city = "上海";
+console.log("原数据姓名：", originalData.name); // 小明
+console.log("原数据城市：", originalData.info.city); // 北京
