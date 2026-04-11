@@ -13,7 +13,7 @@ function curry(fn) {
 
 // 深拷贝
 function deepClone(obj) {
-  if (obj !== 'object' || obj === null) return obj;
+  if (typeof obj !== 'object' || obj === null) return obj;
 
   let newObj = Array.isArray(obj) ? [] : {};
   for (let key in obj) {
@@ -51,8 +51,8 @@ function throttle(fn, time) {
 }
 
 // function.bind
-function myBind(obj, ...args) {
-  const context = typeof obj === 'object' ? obj : window;
+Function.prototype.myBind = function (obj, ...args) {
+  const context = (obj !== null && typeof obj === 'object') ? obj : window;
 
   return (...args2) => {
     this.call(context, ...args, ...args2);
@@ -60,8 +60,8 @@ function myBind(obj, ...args) {
 }
 
 // function.call
-function myCall(obj, ...args) {
-  const context = typeof obj === 'object' ? obj : window;
+Function.prototype.myCall = function (obj, ...args) {
+  const context = (obj !== null && typeof obj === 'object') ? obj : window;
 
   const key = Symbol();
   context[key] = this;
@@ -72,18 +72,18 @@ function myCall(obj, ...args) {
 }
 
 // function.apply
-function myApply(obj, argArray) {
-  obj = typeof obj === 'object' ? obj : window;
+Function.prototype.myApply = function (obj, argArray) {
+  const context = (obj !== null && typeof obj === 'object') ? obj : window;
 
   const key = Symbol();
-  obj[key] = this;
+  context[key] = this;
   let result;
   if (!argArray) {
-    result = obj[key]();
+    result = context[key]();
   } else {
-    result = obj[key](argArray);
+    result = context[key](...argArray);
   }
-  delete obj[key];
+  delete context[key];
 
   return result;
 }
@@ -117,7 +117,7 @@ Array.prototype.myReduce = function (fn, init) {
 function myFlat(arr, depth = 1) {
   const result = [];
 
-  arr.array.forEach((item) => {
+  arr.forEach((item) => {
     if (Array.isArray(item) && depth > 0) {
       result.push(...myFlat(item, depth - 1));
     } else {
@@ -156,12 +156,14 @@ Promise.myAll = function (list) {
   const result = [];
 
   return new Promise((resolve, reject) => {
-    list.array.forEach((item, index) => {
+    if (list.length === 0) return resolve([]);
+
+    list.forEach((item, index) => {
       Promise.resolve(item).then(
         (res) => {
           finishNums++;
           result[index] = res;
-          if (finishNums === list, this.length) {
+          if (finishNums === list.length) {
             resolve(result);
           }
         },

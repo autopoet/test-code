@@ -2,7 +2,7 @@
 Function.prototype.myBind = function (obj, ...args) {
   const context = typeof obj === 'object' ? obj : window;
   return (...args2) => {
-    this.call(obj, ...args, ...args2);
+    this.call(context, ...args, ...args2);
   };
 };
 
