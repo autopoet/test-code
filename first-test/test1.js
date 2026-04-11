@@ -24,7 +24,7 @@ console.log(curriedAdd(1, 2)(3));
 
 // 手写实现深拷贝
 function deepClone(obj) {
-  if (typeof boj !== 'object' || obj != null) return obj;
+  if (typeof obj !== 'object' || obj === null) return obj;
 
   const newObj = Array.isArray(obj) ? [] : {};
   for (let key in obj) {

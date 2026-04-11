@@ -14,16 +14,15 @@ function debounce(fn, time) {
 
 // 节流函数
 function throttle(fn, time) {
-  let timer;
+  let lastTime = 0;
+
   return function (...args) {
-    const context = this;
-    if (timer) {
-      return;
+    let now = Date.now();
+
+    if (now - lastTime > time) {
+      fn.apply(this, args);
+      lastTime = now;
     }
-    timer = setTimeout(() => {
-      fn.apply(context, args);
-      timer = null;
-    }, time);
   };
 }
 
