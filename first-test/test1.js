@@ -1,15 +1,26 @@
 // 函数柯里化
 function curry(fn) {
-  return function (...args) {
-    if (fn.length === args.length) {
-      return fn(...args);
+  return function curried(...args) {
+    if (args.length >= fn.length) {
+      return fn.apply(this, args);
     } else {
-      return (...args) => {
-        return fn(...args, ...args2);
+      return function (...args2) {
+        return curried.apply(this, args.concat(args2));
       };
     }
   };
 }
+
+// 测试用例
+function add(a, b, c) {
+  return a + b + c;
+}
+
+const curriedAdd = curry(add);
+
+console.log(curriedAdd(1, 2, 3));
+console.log(curriedAdd(1)(2)(3));
+console.log(curriedAdd(1, 2)(3));
 
 // 手写实现深拷贝
 function deepClone(obj) {

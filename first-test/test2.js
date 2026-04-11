@@ -28,6 +28,7 @@ function throttle(fn, time) {
 }
 
 // 测试用例
+// 防抖
 function sayHello() {
   console.log("防抖成功");
 }
@@ -38,6 +39,7 @@ debouncedSayHello();
 debouncedSayHello();
 debouncedSayHello();
 
+// 节流
 function skill() {
   console.log("节流成功");
 }
