@@ -35,15 +35,15 @@ Function.prototype.myApply = function (obj, argArray) {
 }
 
 // 测试用例
-const person = { name: 'jack' }
+const person = { name: 'jack' };
 
 function func(a, b) {
   console.log(this.name, a + b)
 }
 
-func.myCall(person, 1, 2)
+func.myCall(person, 1, 2);
 
-func.myApply(person, [1, 2])
+func.myApply(person, [1, 2]);
 
 const f = func.myBind(person, 5);
-f(6)
+f(6);
